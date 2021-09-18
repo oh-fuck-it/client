@@ -1,8 +1,8 @@
 package win.rainchan.aishot.aishot.activity
 
 import android.Manifest
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -11,12 +11,10 @@ import org.tensorflow.lite.examples.poseestimation.camera.CameraSource
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.permissions.ensurePermission
 import splitties.toast.toast
-import win.rainchan.aishot.aishot.R
 import win.rainchan.aishot.aishot.ai.data.Device
 import win.rainchan.aishot.aishot.ai.ml.ModelType
 import win.rainchan.aishot.aishot.ai.ml.MoveNet
 import win.rainchan.aishot.aishot.databinding.ActivityCameraAvtivityBinding
-import java.lang.IllegalStateException
 
 
 class CameraActivity : AppCompatActivity() {
@@ -66,7 +64,7 @@ class CameraActivity : AppCompatActivity() {
         cameraSource.setDetector(
             MoveNet.create(
                 this@CameraActivity,
-                Device.NNAPI,
+                Device.GPU,
                 ModelType.Thunder
             )
         )
