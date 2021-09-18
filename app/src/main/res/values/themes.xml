@@ -19,6 +19,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="Theme.AIShot.FullScreen" parent="Theme.AIShot.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="backgroundColor">@color/black</item>
+    </style>
+
     <style name="Theme.AIShot.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.AIShot.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

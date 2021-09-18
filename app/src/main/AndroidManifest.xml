@@ -24,7 +24,7 @@
         </activity>
 
         <activity android:name=".activity.CameraActivity"
-            android:theme="@style/Theme.AIShot.NoActionBar"
+            android:theme="@style/Theme.AIShot.FullScreen"
             >
 
         </activity>
