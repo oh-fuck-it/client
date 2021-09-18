@@ -25,6 +25,7 @@
 
         <activity android:name=".activity.CameraActivity"
             android:theme="@style/Theme.AIShot.FullScreen"
+            android:parentActivityName=".activity.MainActivity"
             >
 
         </activity>
