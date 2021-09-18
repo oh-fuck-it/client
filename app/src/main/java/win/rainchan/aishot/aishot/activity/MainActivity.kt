@@ -1,4 +1,4 @@
-package com.example.aishot
+package win.rainchan.aishot.aishot.activity
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,7 +11,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import com.example.aishot.databinding.ActivityMainBinding
+import win.rainchan.aishot.aishot.R
+import win.rainchan.aishot.aishot.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow,R.id.nav_compose
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_compose
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

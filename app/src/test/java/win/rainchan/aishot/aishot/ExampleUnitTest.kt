@@ -1,4 +1,4 @@
-package com.example.aishot
+package win.rainchan.aishot.aishot
 
 import org.junit.Test
 

@@ -7,23 +7,23 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.aishot.ui.home.HomeFragment"
+        android:name="win.rainchan.aishot.aishot.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.aishot.ui.gallery.GalleryFragment"
+        android:name="win.rainchan.aishot.aishot.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.aishot.ui.slideshow.SlideshowFragment"
+        android:name="win.rainchan.aishot.aishot.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/nav_compose"
-        android:name="com.example.aishot.ui.compose.ComposeFragment"
+        android:name="win.rainchan.aishot.aishot.ui.compose.ComposeFragment"
         android:label="ComposeFragment" />
 </navigation>
