@@ -20,21 +20,13 @@ import win.rainchan.aishot.aishot.databinding.ActivityCameraAvtivityBinding
 class CameraActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCameraAvtivityBinding
-    private lateinit var cameraSource: CameraSource
+    private var cameraSource: CameraSource? = null
 
     @ExperimentalSplittiesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCameraAvtivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        lifecycleScope.launch(Dispatchers.Default) {
-
-            withContext(Dispatchers.Main) {
-                requirePermission()
-
-            }
-
-        }
 
 
     }
@@ -59,9 +51,9 @@ class CameraActivity : AppCompatActivity() {
                 prepareCamera()
             }
         withContext(Dispatchers.Main) {
-            cameraSource.initCamera()
+            cameraSource?.initCamera()
         }
-        cameraSource.setDetector(
+        cameraSource?.setDetector(
             MoveNet.create(
                 this@CameraActivity,
                 Device.GPU,
@@ -88,18 +80,24 @@ class CameraActivity : AppCompatActivity() {
 
 
     override fun onResume() {
-        cameraSource.resume()
+        cameraSource?.resume()
         super.onResume()
     }
 
     override fun onPause() {
-        cameraSource.close()
+        cameraSource?.close()
         super.onPause()
     }
 
+    @ExperimentalSplittiesApi
     override fun onStart() {
         super.onStart()
         lifecycleScope.launch {
+            withContext(Dispatchers.Main) {
+
+                requirePermission()
+            }
+
             openCamera()
         }
     }
