@@ -3,6 +3,10 @@ plugins {
     id 'kotlin-android'
 }
 
+def APP_ID = "photoAPP"
+def APP_KEY = "fhsdfh9832y7e7"
+def APP_URL = "http://foo"
+
 android {
     compileSdk 31
 
@@ -12,8 +16,10 @@ android {
         targetSdk 30
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "APP_ID", "\"$APP_ID\"")
+        buildConfigField("String", "API_URL", "\"$APP_URL\"")
+        buildConfigField("String", "APP_KEY", "\"$APP_KEY\"")
     }
 
     buildTypes {
@@ -40,7 +46,7 @@ android {
 }
 
 def splite_version = "3.0.0"
-
+def parseVersion = "1.26.0"
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.6.0'
@@ -77,6 +83,13 @@ dependencies {
     implementation "androidx.compose.material:material:1.1.0-alpha04"
     implementation "androidx.compose.foundation:foundation:1.1.0-alpha04"
     implementation 'androidx.compose.ui:ui-tooling-preview:1.0.2'
+
+    //parse
+    implementation "com.github.parse-community.Parse-SDK-Android:parse:$parseVersion"
+    // for Kotlin extensions support (optional)
+    implementation "com.github.parse-community.Parse-SDK-Android:ktx:$parseVersion"
+    // for Kotlin coroutines support (optional)
+    implementation "com.github.parse-community.Parse-SDK-Android:coroutines:$parseVersion"
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
