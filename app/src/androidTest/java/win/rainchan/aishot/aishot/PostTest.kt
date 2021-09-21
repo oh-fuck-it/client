@@ -1,7 +1,6 @@
 package win.rainchan.aishot.aishot
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.parse.ParseObject
 import com.parse.ParseUser
 import com.parse.coroutines.suspendSave
 import kotlinx.coroutines.runBlocking
@@ -14,13 +13,17 @@ import win.rainchan.aishot.aishot.entity.Post
 class PostTest {
     @Test
     fun testAddPost(){
+        println(ParseUser.getCurrentUser().email)
         runBlocking {
-            Post().apply {
+            val post = Post().apply {
                 this.content = "lalalaa"
-                ParseUser.getCurrentUser().getRelation<Post>("posts").add(this)
+
                 this.like = 1
 
-            }.suspendSave()
+            }
+            post.suspendSave()
+            ParseUser.getCurrentUser().getRelation<Post>("posts").add(post)
+            ParseUser.getCurrentUser().save()
         }
 
     }

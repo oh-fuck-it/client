@@ -27,11 +27,11 @@ class UserTest {
 
     @Test
     fun loginTest() {
-        ParseUser.logIn("$userName@test.com", "gfdoigiudio")
+        APP.ctx.login("$userName@test.com", "gfdoigiudio")
     }
-
-    @Test
-    fun logoutTest() {
-        ParseUser.logOut()
-    }
+//
+//    @Test
+//    fun logoutTest() {
+//        ParseUser.logOut()
+//    }
 }
