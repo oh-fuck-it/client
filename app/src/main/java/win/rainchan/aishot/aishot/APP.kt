@@ -11,6 +11,7 @@ class APP : Application() {
                 .applicationId(BuildConfig.APP_ID)
                 .clientKey(BuildConfig.APP_KEY)
                 .server(BuildConfig.API_URL)
+                .enableLocalDataStore()
                 .build()
         )
     }

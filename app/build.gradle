@@ -5,7 +5,7 @@ plugins {
 
 def APP_ID = "photoAPP"
 def APP_KEY = "fhsdfh9832y7e7"
-def APP_URL = "http://foo"
+def APP_URL = "http://62.234.132.110:1337/api"
 
 android {
     compileSdk 31
@@ -40,8 +40,11 @@ android {
         compose true
     }
     composeOptions{
-
         kotlinCompilerExtensionVersion "1.1.0-alpha01"
+    }
+    packagingOptions {
+        exclude "META-INF/AL2.0"
+        exclude "META-INF/LGPL2.1"
     }
 }
 
