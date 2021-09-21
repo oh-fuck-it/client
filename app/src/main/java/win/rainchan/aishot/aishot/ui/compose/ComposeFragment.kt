@@ -33,7 +33,6 @@ class ComposeFragment:Fragment() {
 @Composable
 fun mainView(){
      Card(modifier = Modifier.padding(10.dp)) {
-        Text(text = "啦啦啦啦",modifier = Modifier.padding(horizontal = 10.dp))
+        Text(text = "啦啦",modifier = Modifier.padding(horizontal = 10.dp))
     }
-
 }

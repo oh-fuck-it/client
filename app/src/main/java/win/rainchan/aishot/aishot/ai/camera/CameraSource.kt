@@ -1,4 +1,4 @@
-package org.tensorflow.lite.examples.poseestimation.camera
+package win.rainchan.aishot.aishot.ai.camera
 
 import android.annotation.SuppressLint
 import android.content.Context
