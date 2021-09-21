@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.tensorflow.lite.examples.poseestimation.camera.CameraSource
+import win.rainchan.aishot.aishot.ai.camera.CameraSource
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.permissions.ensurePermission
 import splitties.toast.toast
