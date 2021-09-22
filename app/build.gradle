@@ -20,6 +20,9 @@ android {
         buildConfigField("String", "APP_ID", "\"$APP_ID\"")
         buildConfigField("String", "API_URL", "\"$APP_URL\"")
         buildConfigField("String", "APP_KEY", "\"$APP_KEY\"")
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
 
     buildTypes {
@@ -34,6 +37,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        useIR = true
     }
     buildFeatures {
         viewBinding true
@@ -41,10 +45,14 @@ android {
     }
     composeOptions{
         kotlinCompilerExtensionVersion "1.1.0-alpha01"
+        kotlinCompilerVersion '1.5.21'
     }
     packagingOptions {
         exclude "META-INF/AL2.0"
         exclude "META-INF/LGPL2.1"
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
     }
 }
 
@@ -81,6 +89,9 @@ dependencies {
 
     //compose
     implementation("androidx.compose.ui:ui:1.1.0-alpha04")
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    implementation 'androidx.activity:activity-compose:1.3.1'
     // Tooling support (Previews, etc.)
     debugImplementation("androidx.compose.ui:ui-tooling:1.1.0-alpha04")
 

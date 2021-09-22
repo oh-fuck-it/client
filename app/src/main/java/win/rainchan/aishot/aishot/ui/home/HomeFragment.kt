@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import win.rainchan.aishot.aishot.activity.CameraActivity
+import win.rainchan.aishot.aishot.activity.PhotoShowActivity
 import win.rainchan.aishot.aishot.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -38,7 +39,10 @@ class HomeFragment : Fragment() {
         })
 
         _binding!!.button.setOnClickListener {
-            startActivity(Intent(requireContext(),CameraActivity::class.java))
+            startActivity(Intent(requireContext(), CameraActivity::class.java))
+        }
+        _binding!!.button2.setOnClickListener {
+            startActivity(Intent(requireContext(), PhotoShowActivity::class.java))
         }
         return root
     }

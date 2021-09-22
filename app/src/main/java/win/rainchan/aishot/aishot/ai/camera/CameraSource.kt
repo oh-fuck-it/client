@@ -16,6 +16,7 @@ import android.os.HandlerThread
 import android.util.Log
 import android.view.Surface
 import android.view.SurfaceView
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.suspendCancellableCoroutine
 import org.json.JSONArray
 import win.rainchan.aishot.aishot.ai.VisualizationUtils
@@ -74,6 +75,8 @@ class CameraSource(
     private var imageReaderHandler: Handler? = null
     private var cameraId: String = ""
 
+    private var shotBitmap: CompletableDeferred<Bitmap>? = null
+
     suspend fun initCamera() {
         camera = openCamera(cameraManager, cameraId)
         imageReader =
@@ -98,6 +101,10 @@ class CameraSource(
                     imageBitmap, 0, 0, PREVIEW_WIDTH, PREVIEW_HEIGHT,
                     rotateMatrix, false
                 )
+                synchronized(this) {
+                    shotBitmap?.complete(rotatedBitmap.copy(Bitmap.Config.ARGB_8888, false))
+                }
+
                 processImage(rotatedBitmap)
                 image.close()
             }
@@ -169,15 +176,6 @@ class CameraSource(
         }
     }
 
-    fun setClassifier(classifier: PoseClassifier?) {
-        synchronized(lock) {
-            if (this.classifier != null) {
-                this.classifier?.close()
-                this.classifier = null
-            }
-            this.classifier = classifier
-        }
-    }
 
     fun resume() {
         imageReaderThread = HandlerThread("imageReaderThread").apply { start() }
@@ -193,6 +191,17 @@ class CameraSource(
             0,
             1000
         )
+    }
+
+    suspend fun shot(): Bitmap {
+        synchronized(this) {
+            shotBitmap = CompletableDeferred()
+        }
+        val result = shotBitmap!!.await()
+        synchronized(this) {
+            shotBitmap = null
+        }
+        return result
     }
 
     fun close() {

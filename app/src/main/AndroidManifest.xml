@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="win.rainchan.aishot.aishot">
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
         android:name=".APP"
-        android:usesCleartextTraffic="true"
+        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AIShot">
+        android:theme="@style/Theme.AIShot"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.PhotoShowActivity"
+            android:exported="true"
+            android:label="@string/title_activity_photo_show"
+            android:theme="@style/Theme.AIShot.NoActionBar" />
         <activity
             android:name=".activity.MainActivity"
             android:exported="true"
@@ -24,13 +30,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".activity.CameraActivity"
-            android:theme="@style/Theme.AIShot.FullScreen"
+        <activity
+            android:name=".activity.CameraActivity"
             android:parentActivityName=".activity.MainActivity"
-            >
-
-        </activity>
+            android:theme="@style/Theme.AIShot.FullScreen"></activity>
     </application>
 
 </manifest>
