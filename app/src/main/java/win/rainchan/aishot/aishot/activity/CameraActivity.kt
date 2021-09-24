@@ -15,14 +15,15 @@ import win.rainchan.aishot.aishot.ai.camera.CameraSource
 import win.rainchan.aishot.aishot.ai.data.Device
 import win.rainchan.aishot.aishot.ai.ml.ModelType
 import win.rainchan.aishot.aishot.ai.ml.MoveNet
+import win.rainchan.aishot.aishot.cloudai.RecommendImage
 import win.rainchan.aishot.aishot.databinding.ActivityCameraAvtivityBinding
-import java.io.File
 
 
 class CameraActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCameraAvtivityBinding
     private var cameraSource: CameraSource? = null
+    private var predictImage: Bitmap? = null
 
     @ExperimentalSplittiesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,13 +32,31 @@ class CameraActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.btnShot.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
+
+                val photo = cameraSource?.shot() ?: return@launch
                 // 拍照存储
-                val photo = cameraSource?.shot()
-                val tmpFile = File.createTempFile(System.currentTimeMillis().toString(), "png")
-                tmpFile.outputStream().use {
-                    photo?.compress(Bitmap.CompressFormat.JPEG, 80, it)
+//                val tmpFile = File.createTempFile(System.currentTimeMillis().toString(), "png")
+//                tmpFile.outputStream().use {
+//                    photo?.compress(Bitmap.CompressFormat.JPEG, 80, it)
+//                }
+
+                val data =
+                    cameraSource?.detector?.estimateSinglePose(photo)?.toArray() ?: return@launch
+
+                if (predictImage != null) {
+                    withContext(Dispatchers.Main) {
+                        binding.predictImg.setImageResource(android.R.color.white)
+                    }
+                    predictImage?.recycle()
+                    predictImage = null
                 }
-                photo?.recycle()
+
+                predictImage = RecommendImage.getImage(data)
+                // 显示图片
+                withContext(Dispatchers.Main) {
+                    binding.predictImg.setImageBitmap(predictImage)
+                }
+                photo.recycle()
             }
         }
 

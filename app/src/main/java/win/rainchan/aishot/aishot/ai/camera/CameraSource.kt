@@ -16,9 +16,7 @@ import android.os.HandlerThread
 import android.util.Log
 import android.view.Surface
 import android.view.SurfaceView
-import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.suspendCancellableCoroutine
-import org.json.JSONArray
 import win.rainchan.aishot.aishot.ai.VisualizationUtils
 import win.rainchan.aishot.aishot.ai.YuvToRgbConverter
 import win.rainchan.aishot.aishot.ai.data.Person
@@ -43,7 +41,10 @@ class CameraSource(
     }
 
     private val lock = Any()
-    private var detector: PoseDetector? = null
+
+    var detector: PoseDetector? = null
+        private set
+
     private var classifier: PoseClassifier? = null
     private var yuvConverter: YuvToRgbConverter = YuvToRgbConverter(surfaceView.context)
     private lateinit var imageBitmap: Bitmap
@@ -75,7 +76,7 @@ class CameraSource(
     private var imageReaderHandler: Handler? = null
     private var cameraId: String = ""
 
-    private var shotBitmap: CompletableDeferred<Bitmap>? = null
+    private var shotBitmap: Bitmap? = null
 
     suspend fun initCamera() {
         camera = openCamera(cameraManager, cameraId)
@@ -101,9 +102,12 @@ class CameraSource(
                     imageBitmap, 0, 0, PREVIEW_WIDTH, PREVIEW_HEIGHT,
                     rotateMatrix, false
                 )
-                synchronized(this) {
-                    shotBitmap?.complete(rotatedBitmap.copy(Bitmap.Config.ARGB_8888, false))
+
+                if (shotBitmap != null) {
+                    shotBitmap?.recycle()
+                    shotBitmap = null
                 }
+                shotBitmap = rotatedBitmap.copy(Bitmap.Config.ARGB_8888, false)
 
                 processImage(rotatedBitmap)
                 image.close()
@@ -167,13 +171,7 @@ class CameraSource(
     }
 
     fun setDetector(detector: PoseDetector) {
-        synchronized(lock) {
-            if (this.detector != null) {
-                this.detector?.close()
-                this.detector = null
-            }
-            this.detector = detector
-        }
+
     }
 
 
@@ -193,15 +191,8 @@ class CameraSource(
         )
     }
 
-    suspend fun shot(): Bitmap {
-        synchronized(this) {
-            shotBitmap = CompletableDeferred()
-        }
-        val result = shotBitmap!!.await()
-        synchronized(this) {
-            shotBitmap = null
-        }
-        return result
+    fun shot(): Bitmap? {
+        return shotBitmap?.copy(Bitmap.Config.ARGB_8888, false)
     }
 
     fun close() {
@@ -228,15 +219,16 @@ class CameraSource(
         var classificationResult: List<Pair<String, Float>>? = null
 
         synchronized(lock) {
-            detector?.estimateSinglePose(bitmap)?.let { iperson->
+            detector?.estimateSinglePose(bitmap)?.let { iperson ->
                 iperson.keyPoints = iperson.keyPoints.filter { it.score >= .3f }
 
-                val pointIndex = iperson.keyPoints.map { it.bodyPart.position }.toList()
-                val points = iperson.keyPoints.map { listOf(it.coordinate.y , it.coordinate.x) }.toList()
-                val json = JSONArray()
-                json.put(0,pointIndex)
-                json.put(1,points)
-                Log.d("POINT_INFO",json.toString())
+//                val pointIndex = iperson.keyPoints.map { it.bodyPart.position }.toList()
+//                val points =
+//                    iperson.keyPoints.map { listOf(it.coordinate.y, it.coordinate.x) }.toList()
+//                val json = JSONArray()
+//                json.put(0, pointIndex)
+//                json.put(1, points)
+//                Log.d("POINT_INFO", json.toString())
                 person = iperson
                 classifier?.run {
                     classificationResult = classify(person)
@@ -253,6 +245,7 @@ class CameraSource(
             visualize(it, bitmap)
         }
     }
+
 
     private fun visualize(person: Person, bitmap: Bitmap) {
         var outputBitmap = bitmap

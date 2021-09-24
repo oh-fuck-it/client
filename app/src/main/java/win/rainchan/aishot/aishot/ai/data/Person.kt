@@ -16,6 +16,9 @@ limitations under the License.
 
 package win.rainchan.aishot.aishot.ai.data
 
-import win.rainchan.aishot.aishot.ai.data.KeyPoint
+data class Person(var keyPoints: List<KeyPoint>, val score: Float) {
 
-data class Person(var keyPoints: List<KeyPoint>, val score: Float)
+    fun toArray() = keyPoints.map { it.toArray() }.toTypedArray()
+
+
+}

@@ -17,6 +17,7 @@ limitations under the License.
 package win.rainchan.aishot.aishot.ai.data
 
 import android.graphics.PointF
-import win.rainchan.aishot.aishot.ai.data.BodyPart
 
-data class KeyPoint(val bodyPart: BodyPart, var coordinate: PointF, val score: Float)
+data class KeyPoint(val bodyPart: BodyPart, var coordinate: PointF, val score: Float) {
+    fun toArray() = arrayOf(coordinate.y, coordinate.x, score)
+}

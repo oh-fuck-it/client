@@ -10,7 +10,7 @@ import win.rainchan.aishot.aishot.APP
 import win.rainchan.aishot.aishot.BuildConfig
 
 object RecommendImage {
-    suspend fun getImage(vector: Array<Array<Double>>): Bitmap {
+    suspend fun <T> getImage(vector: Array<Array<T>>): Bitmap {
         val req = Request.Builder().url("${BuildConfig.PREDCT_API}/predict")
             .post(
                 FormBody.Builder().add("img", APP.gson.toJson(vector)).build()
