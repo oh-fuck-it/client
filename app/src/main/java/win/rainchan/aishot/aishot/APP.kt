@@ -2,9 +2,11 @@ package win.rainchan.aishot.aishot
 
 import android.app.Application
 import android.content.Context
+import com.google.gson.Gson
 import com.parse.Parse
 import com.parse.ParseObject
 import com.parse.ParseUser
+import okhttp3.OkHttpClient
 import win.rainchan.aishot.aishot.entity.Post
 
 class APP : Application() {
@@ -12,6 +14,8 @@ class APP : Application() {
     companion object {
         val SESSION_KEY = "session"
         lateinit var ctx: APP
+        val http: OkHttpClient = OkHttpClient.Builder().build()
+        val gson = Gson()
     }
 
     override fun onCreate() {

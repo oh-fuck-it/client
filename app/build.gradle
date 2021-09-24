@@ -6,6 +6,7 @@ plugins {
 def APP_ID = "photoAPP"
 def APP_KEY = "fhsdfh9832y7e7"
 def APP_URL = "http://62.234.132.110:1337/api"
+def PREDICT_API = "http://10.0.117.34:5000/"
 
 android {
     compileSdk 31
@@ -20,6 +21,7 @@ android {
         buildConfigField("String", "APP_ID", "\"$APP_ID\"")
         buildConfigField("String", "API_URL", "\"$APP_URL\"")
         buildConfigField("String", "APP_KEY", "\"$APP_KEY\"")
+        buildConfigField("String", "PREDCT_API", "\"$PREDICT_API\"")
         vectorDrawables {
             useSupportLibrary true
         }
@@ -73,6 +75,9 @@ dependencies {
     implementation 'org.tensorflow:tensorflow-lite:2.5.0'
     implementation 'org.tensorflow:tensorflow-lite-gpu:2.5.0'
     implementation 'org.tensorflow:tensorflow-lite-support:0.2.0'
+
+    //gson
+    implementation 'com.google.code.gson:gson:2.8.8'
 
 
     //androidx-preference
