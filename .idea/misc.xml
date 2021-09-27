@@ -3,19 +3,19 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/TempDemo/FcukFiveGame/app/src/main/res/layout/activity_camera_avtivity.xml" value="0.2640625" />
+        <entry key="..\:/TempDemo/FcukFiveGame/app/src/main/res/layout/fragment_gallery.xml" value="0.23020833333333332" />
+        <entry key="..\:/TempDemo/FcukFiveGame/app/src/main/res/layout/fragment_home.xml" value="0.21770833333333334" />
+        <entry key="..\:/TempDemo/FcukFiveGame/app/src/main/res/layout/item_photo_list.xml" value="0.23020833333333332" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_camera_avtivity.xml" value="0.5395833333333333" />
-        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
-        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/app_bar_main.xml" value="0.34322916666666664" />
+        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/content_main.xml" value="0.490036231884058" />
-        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/fragment_gallery.xml" value="0.44635416666666666" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/fragment_home.xml" value="0.40572916666666664" />
-        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/item_photo_list.xml" value="0.44635416666666666" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/menu/activity_main_drawer.xml" value="0.3307291666666667" />
-        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/menu/main.xml" value="0.44635416666666666" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_13" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
