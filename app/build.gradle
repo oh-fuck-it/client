@@ -110,6 +110,12 @@ dependencies {
     // Integration with observables
     implementation("androidx.compose.runtime:runtime-livedata:1.1.0-alpha04")
 
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
+
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     // UI Tests
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.0-alpha04")

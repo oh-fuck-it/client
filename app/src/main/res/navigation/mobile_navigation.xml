@@ -8,22 +8,17 @@
     <fragment
         android:id="@+id/nav_home"
         android:name="win.rainchan.aishot.aishot.ui.home.HomeFragment"
-        android:label="@string/menu_home"
+        android:label="主页"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="win.rainchan.aishot.aishot.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
+        android:label="相册"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="win.rainchan.aishot.aishot.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
-    <fragment
         android:id="@+id/nav_compose"
         android:name="win.rainchan.aishot.aishot.ui.compose.ComposeFragment"
-        android:label="ComposeFragment" />
+        android:label="我的" />
 </navigation>
