@@ -26,7 +26,7 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.homeRecycle.adapter = PhotoAdapter(galleryViewModel.dataList)
+//        binding.homeRecycle.adapter = PhotoAdapter(galleryViewModel.dataList)
         binding.homeRecycle.layoutManager = GridLayoutManager(context, 2)
         return binding.root
     }

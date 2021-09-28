@@ -16,7 +16,7 @@ class GalleryFragment : Fragment() {
     @ExperimentalStdlibApi
     private val galleryViewModel: GalleryViewModel by viewModels()
     private lateinit var binding: FragmentGalleryBinding
-
+    private  var adapter =PhotoAdapter(arrayListOf())
 
     @ExperimentalStdlibApi
     override fun onCreateView(
@@ -25,10 +25,15 @@ class GalleryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentGalleryBinding.inflate(inflater, container, false)
-
-        binding.photoList.adapter = PhotoAdapter(galleryViewModel.dataList)
+        galleryViewModel.dataList.observe(viewLifecycleOwner){
+            if (it.isNotEmpty()){
+               // adapter.setDiffNewData(it.toMutableList())
+                adapter.setNewData(it.toMutableList())
+            }
+        }
+        galleryViewModel.loadData()
+        binding.photoList.adapter = adapter
         binding.photoList.layoutManager = GridLayoutManager(context, 2)
-
         return binding.root
     }
 

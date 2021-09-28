@@ -24,7 +24,7 @@ object PhotoSpider {
     * @Param: 每页16张图片
     * */
     @ExperimentalStdlibApi
-    public suspend fun getNews(num:Int):List<NewsBean?>{
+    public suspend fun getPhotos(num:Int):List<NewsBean>{
        return withContext(Dispatchers.IO){
             val index:String = Jsoup.connect(url).headers(headers)
                 .data("json","1")
