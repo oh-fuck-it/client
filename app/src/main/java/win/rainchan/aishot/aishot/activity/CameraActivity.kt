@@ -1,6 +1,7 @@
 package win.rainchan.aishot.aishot.activity
 
 import android.Manifest
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -15,8 +16,8 @@ import win.rainchan.aishot.aishot.ai.camera.CameraSource
 import win.rainchan.aishot.aishot.ai.data.Device
 import win.rainchan.aishot.aishot.ai.ml.ModelType
 import win.rainchan.aishot.aishot.ai.ml.MoveNet
-import win.rainchan.aishot.aishot.cloudai.RecommendImage
 import win.rainchan.aishot.aishot.databinding.ActivityCameraAvtivityBinding
+import java.io.File
 
 
 class CameraActivity : AppCompatActivity() {
@@ -34,29 +35,36 @@ class CameraActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
 
                 val photo = cameraSource?.shot() ?: return@launch
-                // 拍照存储
-//                val tmpFile = File.createTempFile(System.currentTimeMillis().toString(), "png")
-//                tmpFile.outputStream().use {
-//                    photo?.compress(Bitmap.CompressFormat.JPEG, 80, it)
+//                 拍照存储
+                val tmpFile = File.createTempFile(System.currentTimeMillis().toString(), "png")
+                tmpFile.outputStream().use {
+                    photo.compress(Bitmap.CompressFormat.JPEG, 80, it)
+                }
+                startActivity(
+                    Intent(baseContext, PhotoShowActivity::class.java).putExtra(
+                        "photo",
+                        tmpFile.absolutePath
+                    )
+                )
+//                val data =  synchronized(cameraSource!!.lock){
+//                        cameraSource?.detector?.estimateSinglePose(photo)?.toArray() ?: return@launch
 //                }
-
-                val data =
-                    cameraSource?.detector?.estimateSinglePose(photo)?.toArray() ?: return@launch
-
-                if (predictImage != null) {
-                    withContext(Dispatchers.Main) {
-                        binding.predictImg.setImageResource(android.R.color.white)
-                    }
-                    predictImage?.recycle()
-                    predictImage = null
-                }
-
-                predictImage = RecommendImage.getImage(data)
-                // 显示图片
-                withContext(Dispatchers.Main) {
-                    binding.predictImg.setImageBitmap(predictImage)
-                }
-                photo.recycle()
+//
+//
+//                if (predictImage != null) {
+//                    withContext(Dispatchers.Main) {
+//                        binding.predictImg.setImageResource(android.R.color.white)
+//                    }
+//                    predictImage?.recycle()
+//                    predictImage = null
+//                }
+//
+//                predictImage = RecommendImage.getImage(data)
+//                // 显示图片
+//                withContext(Dispatchers.Main) {
+//                    binding.predictImg.setImageBitmap(predictImage)
+//                }
+//                photo.recycle()
             }
         }
 
