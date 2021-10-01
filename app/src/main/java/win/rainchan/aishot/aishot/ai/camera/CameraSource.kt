@@ -169,9 +169,14 @@ class CameraSource(
             this.cameraId = cameraId
         }
     }
-
     fun setDetector(detector: PoseDetector) {
-
+        synchronized(lock) {
+            if (this.detector != null) {
+                this.detector?.close()
+                this.detector = null
+            }
+            this.detector = detector
+        }
     }
 
 

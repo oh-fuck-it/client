@@ -125,7 +125,6 @@ class CameraActivity : AppCompatActivity() {
         super.onStart()
         lifecycleScope.launch {
             withContext(Dispatchers.Main) {
-
                 requirePermission()
             }
 
