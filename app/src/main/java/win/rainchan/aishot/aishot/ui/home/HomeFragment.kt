@@ -11,13 +11,13 @@ import androidx.recyclerview.widget.GridLayoutManager
 import win.rainchan.aishot.aishot.activity.CameraActivity
 import win.rainchan.aishot.aishot.databinding.FragmentHomeBinding
 import win.rainchan.aishot.aishot.ui.gallery.GalleryViewModel
+import win.rainchan.aishot.aishot.ui.gallery.PhotoAdapter
 
 class HomeFragment : Fragment() {
     @ExperimentalStdlibApi
     private val galleryViewModel: GalleryViewModel by viewModels()
-    private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
-
+    private  var adapter =PhotoAdapter(arrayListOf())
 
     @ExperimentalStdlibApi
     override fun onCreateView(
@@ -26,13 +26,17 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-//        binding.homeRecycle.adapter = PhotoAdapter(galleryViewModel.dataList)
-        binding.homeRecycle.layoutManager = GridLayoutManager(context, 2)
-
+        galleryViewModel.dataList.observe(viewLifecycleOwner) {
+            if (it.isNotEmpty()) {
+                adapter.setNewData(it.toMutableList())
+            }
+        }
         binding.button.setOnClickListener {
             startActivity(Intent(requireContext(), CameraActivity::class.java))
         }
+        galleryViewModel.fetchData()
+        binding.homeRecycle.adapter = adapter
+        binding.homeRecycle.layoutManager = GridLayoutManager(context, 2)
         return binding.root
     }
 

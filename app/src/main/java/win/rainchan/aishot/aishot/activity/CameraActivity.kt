@@ -12,10 +12,12 @@ import kotlinx.coroutines.withContext
 import splitties.experimental.ExperimentalSplittiesApi
 import splitties.permissions.ensurePermission
 import splitties.toast.toast
+import win.rainchan.aishot.aishot.APP
 import win.rainchan.aishot.aishot.ai.camera.CameraSource
 import win.rainchan.aishot.aishot.ai.data.Device
 import win.rainchan.aishot.aishot.ai.ml.ModelType
 import win.rainchan.aishot.aishot.ai.ml.MoveNet
+import win.rainchan.aishot.aishot.cloudai.RecommendImage
 import win.rainchan.aishot.aishot.databinding.ActivityCameraAvtivityBinding
 import java.io.File
 
@@ -40,31 +42,33 @@ class CameraActivity : AppCompatActivity() {
                 tmpFile.outputStream().use {
                     photo.compress(Bitmap.CompressFormat.JPEG, 80, it)
                 }
+
+                val data =  synchronized(cameraSource!!.lock){
+                        cameraSource?.detector?.estimateSinglePose(photo)?.toArray() ?: return@launch
+                }
+
+
+                if (predictImage != null) {
+                    withContext(Dispatchers.Main) {
+                        binding.predictImg.setImageResource(android.R.color.white)
+                    }
+                    predictImage?.recycle()
+                    predictImage = null
+                }
+                val bundle = Bundle()
+                bundle.putString("photo", tmpFile.absolutePath)
+                bundle.putString("predictData", APP.gson.toJson(data))
+                // 显示图片
+                withContext(Dispatchers.Main) {
+                    binding.predictImg.setImageBitmap(predictImage)
+                }
                 startActivity(
                     Intent(baseContext, PhotoShowActivity::class.java).putExtra(
-                        "photo",
-                        tmpFile.absolutePath
+                        "bundle",bundle
                     )
                 )
-//                val data =  synchronized(cameraSource!!.lock){
-//                        cameraSource?.detector?.estimateSinglePose(photo)?.toArray() ?: return@launch
-//                }
-//
-//
-//                if (predictImage != null) {
-//                    withContext(Dispatchers.Main) {
-//                        binding.predictImg.setImageResource(android.R.color.white)
-//                    }
-//                    predictImage?.recycle()
-//                    predictImage = null
-//                }
-//
-//                predictImage = RecommendImage.getImage(data)
-//                // 显示图片
-//                withContext(Dispatchers.Main) {
-//                    binding.predictImg.setImageBitmap(predictImage)
-//                }
-//                photo.recycle()
+                photo.recycle()
+
             }
         }
 
