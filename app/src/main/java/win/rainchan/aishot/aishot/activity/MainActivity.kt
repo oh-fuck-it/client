@@ -1,5 +1,6 @@
 package win.rainchan.aishot.aishot.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
@@ -38,6 +39,12 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        binding.floatingCamera.setOnClickListener {
+
+            startActivity(Intent(this, CameraActivity::class.java))
+
+        }
     }
 
 //    override fun onCreateOptionsMenu(menu: Menu): Boolean {

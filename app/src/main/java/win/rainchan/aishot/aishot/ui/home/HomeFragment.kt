@@ -16,6 +16,7 @@ import win.rainchan.aishot.aishot.ui.gallery.PhotoAdapter
 class HomeFragment : Fragment() {
     @ExperimentalStdlibApi
     private val galleryViewModel: GalleryViewModel by viewModels()
+    private val homeViewModel: HomeViewModel by viewModels()
     private lateinit var binding: FragmentHomeBinding
     private  var adapter =PhotoAdapter(arrayListOf())
 
