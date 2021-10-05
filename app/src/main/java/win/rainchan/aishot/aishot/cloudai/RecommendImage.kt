@@ -15,8 +15,13 @@ object RecommendImage {
             .post(
                 FormBody.Builder().add("img", vector).build()
             ).build()
-        val resp = withContext(Dispatchers.IO) { APP.http.newCall(req).execute() }
-        val content = resp.body()?.byteStream() ?: throw IllegalArgumentException("失败")
-        return BitmapFactory.decodeStream(content)
+        return withContext(Dispatchers.IO) {
+            val resp = APP.http.newCall(req).execute()
+
+            val content = resp.body()?.bytes() ?: throw IllegalArgumentException("失败")
+
+            BitmapFactory.decodeByteArray(content, 0, content.size)
+        }
+
     }
 }
