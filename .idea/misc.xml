@@ -11,11 +11,16 @@
         <entry key="..\:/TempDemo/FcukFiveGame/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.23385416666666667" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_camera_avtivity.xml" value="0.5223367697594502" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_mine.xml" value="0.44635416666666666" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_photo_show.xml" value="0.2703125" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/content_main.xml" value="0.490036231884058" />
+        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/fragment_gallery.xml" value="0.26927083333333335" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/fragment_home.xml" value="0.40572916666666664" />
+        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/fragment_mine.xml" value="0.3828571428571429" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/item_photo_list.xml" value="0.13145896656534956" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/menu/activity_main_drawer.xml" value="0.3307291666666667" />
+        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.4625" />
+        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.4625" />
       </map>
     </option>
   </component>
