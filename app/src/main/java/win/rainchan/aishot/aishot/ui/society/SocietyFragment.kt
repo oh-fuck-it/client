@@ -15,7 +15,7 @@ class SocietyFragment : Fragment()  {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentSocietyBinding.inflate(inflater, container, false)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        return binding.root
     }
 
 }
