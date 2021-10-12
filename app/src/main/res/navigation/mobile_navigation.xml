@@ -16,9 +16,13 @@
         android:name="win.rainchan.aishot.aishot.ui.gallery.GalleryFragment"
         android:label="相册"
         tools:layout="@layout/fragment_gallery" />
-
+    <fragment
+        android:id="@+id/nav_society"
+        android:name="win.rainchan.aishot.aishot.ui.society.SocietyFragment"
+        android:label="社区" />
     <fragment
         android:id="@+id/nav_compose"
         android:name="win.rainchan.aishot.aishot.ui.mine.MineFragment"
         android:label="我的" />
+
 </navigation>

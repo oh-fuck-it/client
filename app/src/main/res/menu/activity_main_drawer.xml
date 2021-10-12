@@ -17,8 +17,13 @@
         <!--            android:icon="@drawable/ic_menu_slideshow"-->
         <!--            android:title="@string/menu_slideshow" />-->
         <item
+            android:id="@+id/nav_society"
+            android:icon="@drawable/ic_baseline_assignment_24"
+            android:title="社区" />
+        <item
             android:id="@+id/nav_compose"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="我的" />
+
     </group>
 </menu>
