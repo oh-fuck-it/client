@@ -37,12 +37,17 @@
                 android:id="@+id/textView4"
                 android:layout_width="203dp"
                 android:layout_height="19dp"
+                android:layout_marginBottom="28dp"
                 android:text="你所热爱的，就是你的生活"
-                android:textColor="@color/brown_100"
+                android:textColor="@color/grey_500"
                 android:textSize="14sp"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="34dp"
-                tools:layout_editor_absoluteY="111dp" />
+                app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.166"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/user_text"
+                app:layout_constraintVertical_bias="1.0"
+                tools:ignore="MissingConstraints" />
 
             <com.google.android.material.circularreveal.cardview.CircularRevealCardView
                 android:layout_width="100dp"
@@ -74,6 +79,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="97"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
                         tools:layout_editor_absoluteX="11dp"
                         tools:layout_editor_absoluteY="68dp" />
@@ -82,6 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="人气"
+                        android:textColor="@color/grey_500"
                         android:textSize="15sp"
                         tools:layout_editor_absoluteX="11dp"
                         tools:layout_editor_absoluteY="68dp" />
@@ -92,7 +99,7 @@
                 android:id="@+id/linearLayoutCompat2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="28dp"
+                android:layout_marginStart="44dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/linearLayoutCompat"
                 app:layout_constraintTop_toBottomOf="@+id/user_text"
@@ -108,6 +115,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="634"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
                         tools:layout_editor_absoluteX="11dp"
                         tools:layout_editor_absoluteY="68dp" />
@@ -116,6 +124,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="粉丝"
+                        android:textColor="@color/grey_500"
                         android:textSize="15sp"
                         tools:layout_editor_absoluteX="11dp"
                         tools:layout_editor_absoluteY="68dp" />
@@ -141,6 +150,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="58"
+                        android:textColor="@color/black"
                         android:textSize="20sp"
                         tools:layout_editor_absoluteX="11dp"
                         tools:layout_editor_absoluteY="68dp" />
@@ -149,6 +159,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:text="关注"
+                        android:textColor="@color/grey_500"
                         android:textSize="15sp"
                         tools:layout_editor_absoluteX="11dp"
                         tools:layout_editor_absoluteY="68dp" />
