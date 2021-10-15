@@ -27,7 +27,7 @@ class PhotoShowActivity : ComponentActivity() {
         lifecycleScope.launch{
             val predictImg = RecommendImage.getPredictImage(imgData!!)
             withContext(Dispatchers.Main){
-                Glide.with(binding.root).load(predictImg).into(binding.predictImg)
+                Glide.with(binding.root).load(predictImg).into(binding.galleryBtn)
             }
         }
 
