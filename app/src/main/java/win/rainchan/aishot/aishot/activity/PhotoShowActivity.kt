@@ -7,7 +7,6 @@ import com.bumptech.glide.Glide
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import win.rainchan.aishot.aishot.APP
 import win.rainchan.aishot.aishot.cloudai.RecommendImage
 import win.rainchan.aishot.aishot.databinding.ActivityPhotoShowBinding
 import java.io.File
@@ -26,7 +25,7 @@ class PhotoShowActivity : ComponentActivity() {
             Glide.with(binding.root).load(File(data)).into(binding.photoView)
         }
         lifecycleScope.launch{
-            val predictImg = RecommendImage.getImage(imgData!!)
+            val predictImg = RecommendImage.getPredictImage(imgData!!)
             withContext(Dispatchers.Main){
                 Glide.with(binding.root).load(predictImg).into(binding.predictImg)
             }

@@ -32,7 +32,7 @@ class CloudPredictTest {
             arrayOf(1.0057803392410278, 0.44581159949302673, 0.04381632059812546)
         )
         runBlocking {
-            val bitMap = RecommendImage.getImage(data)
+            val bitMap = RecommendImage.getPredictImage(data)
             Assert.assertTrue(bitMap.height > 0)
             bitMap.recycle()
         }
