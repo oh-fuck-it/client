@@ -39,7 +39,7 @@
         app:layout_constraintVertical_bias="0.166" />
 
     <ImageView
-        android:id="@+id/predict_img"
+        android:id="@+id/gallery_btn"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginEnd="32dp"
@@ -53,7 +53,7 @@
         app:srcCompat="@android:drawable/divider_horizontal_dim_dark" />
 
     <ImageView
-        android:id="@+id/predict_img2"
+        android:id="@+id/mark_btn"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginStart="32dp"

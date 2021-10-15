@@ -50,7 +50,7 @@ class CameraActivity : AppCompatActivity() {
 
                 if (predictImage != null) {
                     withContext(Dispatchers.Main) {
-                        binding.predictImg.setImageResource(android.R.color.white)
+                        binding.galleryBtn.setImageResource(android.R.color.white)
                     }
                     predictImage?.recycle()
                     predictImage = null
@@ -60,7 +60,7 @@ class CameraActivity : AppCompatActivity() {
                 bundle.putString("predictData", APP.gson.toJson(data))
                 // 显示图片
                 withContext(Dispatchers.Main) {
-                    binding.predictImg.setImageBitmap(predictImage)
+                    binding.galleryBtn.setImageBitmap(predictImage)
                 }
                 startActivity(
                     Intent(baseContext, PhotoShowActivity::class.java).putExtra(
@@ -71,7 +71,11 @@ class CameraActivity : AppCompatActivity() {
 
             }
         }
-
+        binding.markBtn.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO) {
+                //TODO: 这里写评分逻辑
+            }
+        }
     }
 
 
