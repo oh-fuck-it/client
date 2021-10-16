@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
@@ -86,12 +87,24 @@ class CameraActivity : AppCompatActivity() {
                 })
             }
         }
+        shutHint()
+    }
+
+    private fun shutHint() {
+        val hint = intent.getBooleanExtra("hint", false)
+        if (hint) {
+            binding.shotHint.visibility = View.VISIBLE
+        }
+        // todo 拍照提示模式
     }
 
 
     private suspend fun openCamera() {
         cameraSource =
             CameraSource(binding.frameCamera, object : CameraSource.CameraSourceListener {
+
+                var timeSleep = 100
+
                 override fun onFPSListener(fps: Int) {
                     // todo fps
                 }
@@ -101,6 +114,14 @@ class CameraActivity : AppCompatActivity() {
                     poseLabels: List<Pair<String, Float>>?
                 ) {
                     // todo 结果
+                    if (timeSleep == 0) {
+                        // 发送预测结果来获取提示
+
+
+                        timeSleep = 100
+                    } else {
+                        timeSleep--
+                    }
 
                 }
 
