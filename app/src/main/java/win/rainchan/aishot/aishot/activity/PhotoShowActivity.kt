@@ -11,9 +11,11 @@ import win.rainchan.aishot.aishot.cloudai.RecommendImage
 import win.rainchan.aishot.aishot.databinding.ActivityPhotoShowBinding
 import java.io.File
 
-private lateinit var binding: ActivityPhotoShowBinding
+
 
 class PhotoShowActivity : ComponentActivity() {
+    private lateinit var binding: ActivityPhotoShowBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityPhotoShowBinding.inflate(this.layoutInflater)

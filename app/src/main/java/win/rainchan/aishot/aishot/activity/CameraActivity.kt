@@ -17,7 +17,6 @@ import win.rainchan.aishot.aishot.ai.camera.CameraSource
 import win.rainchan.aishot.aishot.ai.data.Device
 import win.rainchan.aishot.aishot.ai.ml.ModelType
 import win.rainchan.aishot.aishot.ai.ml.MoveNet
-import win.rainchan.aishot.aishot.cloudai.RecommendImage
 import win.rainchan.aishot.aishot.databinding.ActivityCameraAvtivityBinding
 import java.io.File
 
@@ -73,7 +72,18 @@ class CameraActivity : AppCompatActivity() {
         }
         binding.markBtn.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
-                //TODO: 这里写评分逻辑
+                val photo = cameraSource?.shot() ?: return@launch
+//                 拍照存储
+                val tmpFile = File.createTempFile(System.currentTimeMillis().toString(), "png")
+                tmpFile.outputStream().use {
+                    photo.compress(Bitmap.CompressFormat.JPEG, 80, it)
+                }
+                photo.recycle()
+                startActivity(Intent(baseContext, PhotoMarkActivity::class.java).apply {
+                    putExtra("bundle", Bundle().apply {
+                        putString("photo", tmpFile.absolutePath)
+                    })
+                })
             }
         }
     }
@@ -109,6 +119,7 @@ class CameraActivity : AppCompatActivity() {
         )
 
     }
+
 
     @ExperimentalSplittiesApi
     private suspend fun requirePermission() {
