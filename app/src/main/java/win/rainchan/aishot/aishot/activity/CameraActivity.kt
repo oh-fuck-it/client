@@ -1,16 +1,15 @@
 package win.rainchan.aishot.aishot.activity
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.Dispatchers
@@ -27,13 +26,8 @@ import win.rainchan.aishot.aishot.ai.ml.MoveNet
 import win.rainchan.aishot.aishot.databinding.ActivityCameraAvtivityBinding
 import java.io.File
 import java.io.FileOutputStream
-import java.lang.Exception
-import android.os.Environment
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import java.io.FileNotFoundException
 import java.io.IOException
-import java.security.Permission
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -89,14 +83,7 @@ class CameraActivity : AppCompatActivity() {
         binding.btnShot.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 val photo = cameraSource?.shot() ?: return@launch
-//                 拍照存储
-//                if (ActivityCompat.checkSelfPermission(this@CameraActivity, Manifest.permission.MANAGE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                    ActivityCompat.requestPermissions(this@CameraActivity,
-//                        arrayOf(Manifest.permission.MANAGE_EXTERNAL_STORAGE), 1);
-//
-//                } else {
-//                    saveImageToGallery(photo, this@CameraActivity)
-//                }
+                Log.d(TAG, getFilesAllName(this@CameraActivity.getExternalFilesDir("data")?.path)[0])
                 saveImageToGallery(photo, this@CameraActivity)
                 photo.recycle()
             }
@@ -104,8 +91,38 @@ class CameraActivity : AppCompatActivity() {
         shutHint()
     }
 
+    // 获取当前目录下所有的mp4文件
+    private fun getFilesAllName(path: String?): MutableList<String> {
+        //传入指定文件夹的路径　　　　
+        var file = File(path);
+        val files: Array<File> = file.listFiles()
+        val imagePaths: MutableList<String> = ArrayList()
+        for (i in files.indices) {
+            if (checkIsImageFile(files[i].path)) {
+                imagePaths.add(files[i].path)
+            }
+        }
+        return imagePaths
+    }
 
-    fun saveImageToGallery(bmp: Bitmap, context: Context): Int {
+    /**
+     * 判断是否是照片
+     */
+    private fun checkIsImageFile(fName: String): Boolean {
+        var isImageFile = false
+        //获取拓展名
+        val fileEnd = fName.substring(
+            fName.lastIndexOf(".") + 1,
+            fName.length
+        ).lowercase(Locale.getDefault())
+        isImageFile =
+            fileEnd == "jpg" || fileEnd == "png" || fileEnd == "gif" || fileEnd == "jpeg" || fileEnd == "bmp"
+        return isImageFile
+    }
+
+
+    @SuppressLint("SimpleDateFormat")
+    private fun saveImageToGallery(bmp: Bitmap, context: Context): Int {
         //生成路径
 
         val appDir = context.getExternalFilesDir("data") ?: return  -1
