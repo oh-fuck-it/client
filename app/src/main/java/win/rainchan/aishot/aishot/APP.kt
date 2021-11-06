@@ -12,7 +12,7 @@ import win.rainchan.aishot.aishot.entity.Post
 class APP : Application() {
 
     companion object {
-        val SESSION_KEY = "session"
+        const val SESSION_KEY = "session"
         lateinit var ctx: APP
         val http: OkHttpClient = OkHttpClient.Builder().build()
         val gson = Gson()
@@ -30,7 +30,6 @@ class APP : Application() {
                 .enableLocalDataStore()
                 .build()
         )
-
         autoLogin()
     }
 
@@ -39,11 +38,6 @@ class APP : Application() {
             val key =
                 getSharedPreferences("auth", Context.MODE_PRIVATE).getString(SESSION_KEY, null)
             if (key != null) {
-//                ParseUser.becomeInBackground(key) { user, e ->
-//                    if (e!= null){
-//                        toast("会话已过期 $e")
-//                    }
-//                }
                 ParseUser.become(key)
             }
         }

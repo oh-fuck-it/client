@@ -1,14 +1,12 @@
 package win.rainchan.aishot.aishot.spider
 
-import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
 import win.rainchan.aishot.aishot.APP
 import win.rainchan.aishot.aishot.spider.Bean.NewsBean
 import win.rainchan.aishot.aishot.spider.Bean.ZxyzGsonClass
-import win.rainchan.aishot.aishot.spider.Bean.ZxyzGsonClassItem
+
 object PhotoSpider {
     private const val detailUrl = "http://www.cpanet.cn/detail_picdetail_%s.html"
     private const val hostUrl = "http://www.cpanet.cn"
