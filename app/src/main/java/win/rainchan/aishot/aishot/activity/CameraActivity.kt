@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
@@ -27,6 +28,14 @@ import win.rainchan.aishot.aishot.databinding.ActivityCameraAvtivityBinding
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
+import android.os.Environment
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.security.Permission
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class CameraActivity : AppCompatActivity() {
@@ -81,7 +90,14 @@ class CameraActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO) {
                 val photo = cameraSource?.shot() ?: return@launch
 //                 拍照存储
-                saveImg(photo, System.currentTimeMillis().toString(), this@CameraActivity)
+//                if (ActivityCompat.checkSelfPermission(this@CameraActivity, Manifest.permission.MANAGE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                    ActivityCompat.requestPermissions(this@CameraActivity,
+//                        arrayOf(Manifest.permission.MANAGE_EXTERNAL_STORAGE), 1);
+//
+//                } else {
+//                    saveImageToGallery(photo, this@CameraActivity)
+//                }
+                saveImageToGallery(photo, this@CameraActivity)
                 photo.recycle()
             }
         }
@@ -89,39 +105,48 @@ class CameraActivity : AppCompatActivity() {
     }
 
 
-    private fun saveImg(bitmap: Bitmap, name: String, context: Context): Boolean {
-        try {
-            var sdcardPath = System.getenv("EXTERNAL_STORAGE");      //获得sd卡路径
-            var dir = "$sdcardPath/ai_shot/";                    //图片保存的文件夹名
-            var file = File(dir);                                 //已File来构建
-            if (!file.exists()) {                                     //如果不存在  就mkdirs()创建此文件夹
-                file.mkdirs();
-            }
-            var mFile = File(dir + name);                        //将要保存的图片文件
-            if (mFile.exists()) {
-                Toast.makeText(context, "该图片已存在!", Toast.LENGTH_SHORT).show();
-                return false;
-            }
+    fun saveImageToGallery(bmp: Bitmap, context: Context): Int {
+        //生成路径
 
-            var outputStream = FileOutputStream(mFile);     //构建输出流
-            bitmap.compress(
-                Bitmap.CompressFormat.JPEG,
-                100,
-                outputStream
-            );  //compress到输出outputStream
-            var uri = Uri.fromFile(mFile);                                  //获得图片的uri
+        val appDir = context.getExternalFilesDir("data") ?: return  -1
+        if (!appDir.exists()) {
+            appDir.mkdirs()
+            appDir.mkdir()
+        }
+
+        //文件名为时间
+        val timeStamp = System.currentTimeMillis()
+        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+        val sd: String = sdf.format(Date(timeStamp))
+        val fileName = "$sd.jpg"
+
+        //获取文件
+        val file = File(appDir, fileName)
+        var fos: FileOutputStream? = null
+        try {
+            fos = FileOutputStream(file)
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+            fos.flush()
+            //通知系统相册刷新
             context.sendBroadcast(
                 Intent(
                     Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-                    uri
+                    Uri.fromFile(File(file.path))
                 )
-            ); //发送广播通知更新图库，这样系统图库可以找到这张图片
-            return true;
-        } catch (e: Exception) {
-            Log.d(TAG, "saveImg: 111111111111111111111111111111111111111111111")
+            )
+            return 2
+        } catch (e: FileNotFoundException) {
             e.printStackTrace()
-        };
-        return false;
+        } catch (e: IOException) {
+            e.printStackTrace()
+        } finally {
+            try {
+                fos?.close()
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+        return -1
     }
 
     private fun shutHint() {
@@ -189,6 +214,7 @@ class CameraActivity : AppCompatActivity() {
             }, {
                 throw IllegalStateException("授权失败")
             })
+
     }
 
 
