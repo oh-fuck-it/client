@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import okhttp3.*
 import org.jsoup.internal.StringUtil
 import win.rainchan.aishot.aishot.spider.Bean.SetTipsResult
+import win.rainchan.aishot.aishot.spider.Bean.TipsResult
 import java.util.concurrent.TimeUnit
 
 object HttpRequestUntil {
@@ -12,7 +13,7 @@ object HttpRequestUntil {
             "img" to imgName
         ))
     }
-    fun getTips(predJoints:ArrayList<ArrayList<Double>>){
+    fun getTips(predJoints:ArrayList<ArrayList<Double>>): TipsResult {
         val arrayString:String = predJoints.joinToString(
             prefix = "[",
             separator = ",",
@@ -28,7 +29,7 @@ object HttpRequestUntil {
                 )
             }
         )
-        return request("GET", "http://62.234.132.110:5000/getTips", mapOf(
+        return request<TipsResult>("GET", "http://62.234.132.110:5000/getTips", mapOf(
             "pred_joints" to arrayString
         ))
     }
