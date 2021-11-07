@@ -1,10 +1,9 @@
-
+package win.rainchan.aishot.aishot.spider.Bean
 
 import com.qcloud.cos.exception.CosClientException
 import com.qcloud.cos.exception.CosServiceException
 import com.qcloud.cos.model.*
 import ink.umb.cdn.web.pic.config.CosClient
-import java.io.ByteArrayInputStream
 import java.io.File
 import java.net.URL
 import java.util.*

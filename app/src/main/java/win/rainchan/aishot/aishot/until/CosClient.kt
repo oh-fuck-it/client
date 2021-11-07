@@ -1,6 +1,6 @@
 package ink.umb.cdn.web.pic.config;
 
-import CosBucket
+import win.rainchan.aishot.aishot.spider.Bean.CosBucket
 import com.qcloud.cos.COSClient
 import com.qcloud.cos.ClientConfig
 import com.qcloud.cos.auth.BasicCOSCredentials
