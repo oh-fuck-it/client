@@ -193,6 +193,10 @@ class CameraActivity : AppCompatActivity() {
                         // 发送预测结果来获取提示
                         val tips = HttpRequestUntil.getTips(person?.toArray() ?: return)
                         runOnUiThread {
+                            if (tips==null){
+                                binding.shotHint.text = "未检测到人体"
+                                return@runOnUiThread
+                            }
                             binding.shotHint.text = tips.data[0]
                         }
                         timeSleep = 100

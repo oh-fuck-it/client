@@ -14,16 +14,17 @@ import win.rainchan.aishot.aishot.spider.Bean.MarkDataClass
 
 
 object HttpRequestUntil {
-    fun postMarker(file: File): MarkDataClass {
+    fun postMarker(file: File): MarkDataClass? {
        return requestFile("POST","http://62.234.132.110:5000/markerImg",file)
     }
-    fun setTips(imgName:String): SetTipsResult {
+    fun setTips(imgName:String): SetTipsResult? {
         return request("POST","http://62.234.132.110:5000/setTips", mapOf(
             "img" to imgName
         ))
     }
 
-    fun getTips(predJoints: Array<Array<Float>>): TipsResult {
+    fun getTips(predJoints: Array<Array<Float>>): TipsResult? {
+        if (predJoints.size <=1) return null
         val arrayString: String = predJoints.joinToString(
             prefix = "[",
             separator = ",",
@@ -39,11 +40,11 @@ object HttpRequestUntil {
                 )
             }
         )
-        return request<TipsResult>("GET", "http://62.234.132.110:5000/getTips", mapOf(
+        return request("POST", "http://62.234.132.110:5000/getTips", mapOf(
             "pred_joints" to arrayString
         ))
     }
-    fun initClient(): OkHttpClient {
+    private fun initClient(): OkHttpClient {
         var client= OkHttpClient()
         val READ_TIMEOUT = 100;
         val CONNECT_TIMEOUT = 60;
@@ -61,7 +62,7 @@ object HttpRequestUntil {
     /*
     * @param: method:GET、POST
     * */
-    private inline fun <reified T> request(method:String, url:String, header:Map<String,String>?=null):T{
+    private inline fun <reified T> request(method:String, url:String, header:Map<String,String>?=null): T? {
        val client = initClient()
         val formBodyBuilder = FormBody.Builder()
         header?.forEach{
@@ -70,15 +71,19 @@ object HttpRequestUntil {
             )
         }
         val formBody = formBodyBuilder.build()
-        val requestBody = Request.Builder()
+        val request = Request.Builder()
             .url(url)
             .method(method,formBody)
             .build()
-        val responseBody = client.newCall(requestBody)
+        val responseBody = client.newCall(request)
             .execute().body()?.string()
-        return  Gson().fromJson(responseBody,T::class.java);
+        return try{
+            Gson().fromJson(responseBody,T::class.java);
+        }catch(e:Exception){
+            null
+        }
     }
-    private inline fun <reified T> requestFile(method:String, url:String, file: File):T{
+    private inline fun <reified T> requestFile(method:String, url:String, file: File):T?{
         val client = initClient()
         val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
             .addFormDataPart(
@@ -92,6 +97,10 @@ object HttpRequestUntil {
             .build()
         val responseBody = client.newCall(request)
             .execute().body()?.string()
-        return  Gson().fromJson(responseBody,T::class.java);
+        return try {
+            Gson().fromJson(responseBody,T::class.java);
+        }catch(e:Exception){
+            null
+        }
     }
 }
