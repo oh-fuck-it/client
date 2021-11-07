@@ -2,13 +2,11 @@ package win.rainchan.aishot.aishot.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -21,12 +19,14 @@ import splitties.toast.toast
 import win.rainchan.aishot.aishot.APP
 import win.rainchan.aishot.aishot.ai.camera.CameraSource
 import win.rainchan.aishot.aishot.ai.data.Device
+import win.rainchan.aishot.aishot.ai.data.Person
 import win.rainchan.aishot.aishot.ai.ml.ModelType
 import win.rainchan.aishot.aishot.ai.ml.MoveNet
 import win.rainchan.aishot.aishot.databinding.ActivityCameraAvtivityBinding
+import win.rainchan.aishot.aishot.until.HttpRequestUntil
 import java.io.File
-import java.io.FileOutputStream
 import java.io.FileNotFoundException
+import java.io.FileOutputStream
 import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -125,7 +125,7 @@ class CameraActivity : AppCompatActivity() {
     private fun saveImageToGallery(bmp: Bitmap, context: Context): Int {
         //生成路径
 
-        val appDir = context.getExternalFilesDir("data") ?: return  -1
+        val appDir = context.getExternalFilesDir("data") ?: return -1
         if (!appDir.exists()) {
             appDir.mkdirs()
             appDir.mkdir()
@@ -186,14 +186,15 @@ class CameraActivity : AppCompatActivity() {
                 }
 
                 override fun onDetectedInfo(
-                    personScore: Float?,
-                    poseLabels: List<Pair<String, Float>>?
+                    person: Person?
                 ) {
                     // todo 结果
                     if (timeSleep == 0) {
                         // 发送预测结果来获取提示
-
-
+                        val tips = HttpRequestUntil.getTips(person?.toArray() ?: return)
+                        runOnUiThread {
+                            binding.shotHint.text = tips.data[0]
+                        }
                         timeSleep = 100
                     } else {
                         timeSleep--
@@ -206,6 +207,9 @@ class CameraActivity : AppCompatActivity() {
             }
         withContext(Dispatchers.Main) {
             cameraSource?.initCamera()
+        }
+        withContext(Dispatchers.IO) {
+            HttpRequestUntil.setTips("LqOO5Ko0zSo.png") // 设置要获取拍照提示的图片文件名
         }
         cameraSource?.setDetector(
             MoveNet.create(

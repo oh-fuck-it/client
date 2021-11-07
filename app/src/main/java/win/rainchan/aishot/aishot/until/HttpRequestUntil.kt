@@ -1,20 +1,25 @@
 package win.rainchan.aishot.aishot.until
 
 import com.google.gson.Gson
-import okhttp3.*
-import org.jsoup.internal.StringUtil
+import okhttp3.ConnectionPool
+import okhttp3.FormBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import win.rainchan.aishot.aishot.spider.Bean.SetTipsResult
 import win.rainchan.aishot.aishot.spider.Bean.TipsResult
 import java.util.concurrent.TimeUnit
 
 object HttpRequestUntil {
-    fun setTips(imgName:String): SetTipsResult {
-        return request("POST","http://62.234.132.110:5000/setTips", mapOf(
-            "img" to imgName
-        ))
+    fun setTips(imgName: String): SetTipsResult {
+        return request(
+            "POST", "http://62.234.132.110:5000/setTips", mapOf(
+                "img" to imgName
+            )
+        )
     }
-    fun getTips(predJoints:ArrayList<ArrayList<Double>>): TipsResult {
-        val arrayString:String = predJoints.joinToString(
+
+    fun getTips(predJoints: Array<Array<Float>>): TipsResult {
+        val arrayString: String = predJoints.joinToString(
             prefix = "[",
             separator = ",",
             postfix = "]",

@@ -37,7 +37,7 @@
                 android:id="@+id/textView4"
                 android:layout_width="203dp"
                 android:layout_height="19dp"
-                android:layout_marginBottom="28dp"
+                android:layout_marginBottom="16dp"
                 android:text="你所热爱的，就是你的生活"
                 android:textColor="@color/grey_500"
                 android:textSize="14sp"
@@ -45,8 +45,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.166"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/user_text"
-                app:layout_constraintVertical_bias="1.0"
                 tools:ignore="MissingConstraints" />
 
             <com.google.android.material.circularreveal.cardview.CircularRevealCardView
@@ -223,7 +221,7 @@
             android:layout_marginBottom="8dp"
             android:gravity="center"
             android:textColor="@color/red_500"
-            android:text="退出登录"
+            android:text="登录"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </LinearLayout>

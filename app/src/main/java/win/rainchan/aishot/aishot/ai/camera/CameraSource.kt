@@ -245,7 +245,7 @@ class CameraSource(
             // send fps to view
             listener?.onFPSListener(framesPerSecond)
         }
-        listener?.onDetectedInfo(person?.score, classificationResult)
+        listener?.onDetectedInfo(person)
         person?.let {
             visualize(it, bitmap)
         }
@@ -305,6 +305,6 @@ class CameraSource(
     interface CameraSourceListener {
         fun onFPSListener(fps: Int)
 
-        fun onDetectedInfo(personScore: Float?, poseLabels: List<Pair<String, Float>>?)
+        fun onDetectedInfo(person: Person?)
     }
 }
