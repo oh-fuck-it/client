@@ -1,21 +1,26 @@
 package win.rainchan.aishot.aishot.until
 
 import com.google.gson.Gson
-import okhttp3.ConnectionPool
-import okhttp3.FormBody
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
+import org.jsoup.internal.StringUtil
 import win.rainchan.aishot.aishot.spider.Bean.SetTipsResult
 import win.rainchan.aishot.aishot.spider.Bean.TipsResult
+import java.io.File
 import java.util.concurrent.TimeUnit
+import okhttp3.RequestBody
+
+import okhttp3.MultipartBody
+import win.rainchan.aishot.aishot.spider.Bean.MarkDataClass
+
 
 object HttpRequestUntil {
-    fun setTips(imgName: String): SetTipsResult {
-        return request(
-            "POST", "http://62.234.132.110:5000/setTips", mapOf(
-                "img" to imgName
-            )
-        )
+    fun postMarker(file: File): MarkDataClass {
+       return requestFile("POST","http://62.234.132.110:5000/markerImg",file)
+    }
+    fun setTips(imgName:String): SetTipsResult {
+        return request("POST","http://62.234.132.110:5000/setTips", mapOf(
+            "img" to imgName
+        ))
     }
 
     fun getTips(predJoints: Array<Array<Float>>): TipsResult {
@@ -56,7 +61,7 @@ object HttpRequestUntil {
     /*
     * @param: method:GET、POST
     * */
-    inline fun <reified T> request(method:String,url:String, header:Map<String,String>?=null):T{
+    private inline fun <reified T> request(method:String, url:String, header:Map<String,String>?=null):T{
        val client = initClient()
         val formBodyBuilder = FormBody.Builder()
         header?.forEach{
@@ -73,5 +78,20 @@ object HttpRequestUntil {
             .execute().body()?.string()
         return  Gson().fromJson(responseBody,T::class.java);
     }
-
+    private inline fun <reified T> requestFile(method:String, url:String, file: File):T{
+        val client = initClient()
+        val requestBody = MultipartBody.Builder().setType(MultipartBody.FORM)
+            .addFormDataPart(
+                "file", file.name,
+                RequestBody.create(MediaType.parse("image/png"), file)
+            )
+            .build()
+        val request = Request.Builder()
+            .url(url)
+            .method(method,requestBody)
+            .build()
+        val responseBody = client.newCall(request)
+            .execute().body()?.string()
+        return  Gson().fromJson(responseBody,T::class.java);
+    }
 }
