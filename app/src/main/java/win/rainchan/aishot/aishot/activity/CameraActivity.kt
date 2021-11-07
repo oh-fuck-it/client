@@ -83,7 +83,7 @@ class CameraActivity : AppCompatActivity() {
         binding.btnShot.setOnClickListener {
             lifecycleScope.launch(Dispatchers.IO) {
                 val photo = cameraSource?.shot() ?: return@launch
-                Log.d(TAG, getFilesAllName(this@CameraActivity.getExternalFilesDir("data")?.path)[0])
+//                Log.d(TAG, getFilesAllName(this@CameraActivity.getExternalFilesDir("data")?.path)[0])
                 saveImageToGallery(photo, this@CameraActivity)
                 photo.recycle()
             }
