@@ -225,7 +225,7 @@ class CameraSource(
 
         synchronized(lock) {
             detector?.estimateSinglePose(bitmap)?.let { iperson ->
-                iperson.keyPoints = iperson.keyPoints.filter { it.score >= .3f }
+//                iperson.keyPoints = iperson.keyPoints.filter { it.score >= .3f }
 
 //                val pointIndex = iperson.keyPoints.map { it.bodyPart.position }.toList()
 //                val points =
