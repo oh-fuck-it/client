@@ -192,13 +192,31 @@ class CameraActivity : AppCompatActivity() {
                     if (timeSleep == 0) {
                         // 发送预测结果来获取提示
                         val tips = HttpRequestUntil.getTips(person?.toArray() ?: return)
+
+
+                        val photo = cameraSource?.shot() ?: return
+                        //  拍照存储
+                        val tmpFile =
+                            File.createTempFile(System.currentTimeMillis().toString(), "png")
+                        tmpFile.outputStream().use {
+                            photo.compress(Bitmap.CompressFormat.JPEG, 50, it)
+                        }
+                        photo.recycle()
+                        val data = HttpRequestUntil.postMarker(tmpFile)
                         runOnUiThread {
-                            if (tips==null){
+                            if (tips == null) {
                                 binding.shotHint.text = "未检测到人体"
                                 return@runOnUiThread
                             }
                             binding.shotHint.text = tips.data[0]
+                            if (data?.mean?.data != null) {
+                                binding.textScore.text = data.mean.data.toString()
+                            } else {
+                                binding.textScore.text = ""
+                            }
+
                         }
+
                         timeSleep = 100
                     } else {
                         timeSleep--
