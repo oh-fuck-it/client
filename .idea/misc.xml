@@ -38,6 +38,7 @@
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_main.xml" value="0.42857142857142855" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_main2.xml" value="0.26927083333333335" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_mine.xml" value="0.44635416666666666" />
+        <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_photo_gallery.xml" value="0.3828571428571429" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_photo_mark_show.xml" value="0.44635416666666666" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_photo_show.xml" value="0.2703125" />
         <entry key="..\:/Users/luo123/AndroidStudioProjects/AIShot/app/src/main/res/layout/activity_post_view_activiy.xml" value="0.275" />
@@ -59,5 +60,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.3828571428571429" />
+      </ProjectState>
+    </option>
   </component>
 </project>

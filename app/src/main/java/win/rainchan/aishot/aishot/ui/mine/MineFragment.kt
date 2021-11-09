@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.parse.ParseUser
 import win.rainchan.aishot.aishot.activity.LoginActivity
+import win.rainchan.aishot.aishot.activity.PhotoGallery
 import win.rainchan.aishot.aishot.databinding.FragmentMineBinding
 
 
@@ -23,6 +24,9 @@ class MineFragment : Fragment() {
         checkLogin()
         binding.loginBtn.setOnClickListener {
             startActivity(Intent(requireContext(), LoginActivity::class.java))
+        }
+        binding.btnPhoto.setOnClickListener {
+            startActivity(Intent(requireContext(), PhotoGallery::class.java))
         }
 
         return binding.root

@@ -201,10 +201,11 @@
             android:text="隐私政策" />
 
         <Button
+            android:id="@+id/btn_photo"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="软件更新" />
+            android:text="相册" />
 
         <Button
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
