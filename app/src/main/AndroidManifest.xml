@@ -18,7 +18,7 @@
         android:theme="@style/Theme.AIShot"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activity.PostViewActiviy"
+            android:name=".activity.PostViewActivity"
             android:theme="@style/Theme.AIShot.NoActionBar"
             android:exported="true" />
         <activity
