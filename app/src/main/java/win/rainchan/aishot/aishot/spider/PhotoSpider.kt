@@ -2,10 +2,14 @@ package win.rainchan.aishot.aishot.spider
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.joda.time.DateTime
+import org.jsoup.Connection
 import org.jsoup.Jsoup
+import splitties.collections.forEachByIndex
 import win.rainchan.aishot.aishot.APP
 import win.rainchan.aishot.aishot.spider.Bean.NewsBean
 import win.rainchan.aishot.aishot.spider.Bean.ZxyzGsonClass
+import java.util.*
 
 object PhotoSpider {
     private const val detailUrl = "http://www.cpanet.cn/detail_picdetail_%s.html"
@@ -18,6 +22,7 @@ object PhotoSpider {
         "Referer" to "http://www.cpanet.cn/zxyz.html",
         "Accept" to "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
     )
+    private const val unsplashSource = "https://source.unsplash.com/random"
     /*
     * @Param: 每页16张图片
     * */
@@ -36,5 +41,21 @@ object PhotoSpider {
                 }
             }
         }
+    }
+    @ExperimentalStdlibApi
+    suspend fun getRandomPhotos(num:Int):List<NewsBean>{
+        return withContext(Dispatchers.IO){
+            return@withContext buildList{
+                for (i in 0..num) {
+                    val response = Jsoup.connect(unsplashSource)
+                        .followRedirects(true)
+                        .ignoreContentType(true)
+                        .method(Connection.Method.GET)
+                        .execute()
+                    add(NewsBean(title = "gallery",imgUrl = response.url().toString(),time = Calendar.getInstance().time.toString()))
+                }
+            }
+        }
+
     }
 }

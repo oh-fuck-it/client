@@ -16,11 +16,16 @@ class GalleryViewModel : ViewModel() {
     @ExperimentalStdlibApi
     fun loadData() {
         viewModelScope.launch(Dispatchers.Main) {
-
             dataList.value = PhotoSpider.getPhotos(1)
         }
     }
-
+    @ExperimentalStdlibApi
+    fun loadUnsplashData() {
+        viewModelScope.launch(Dispatchers.Main) {
+            dataList.value = PhotoSpider.getRandomPhotos(10)
+            println(dataList.value)
+        }
+    }
     fun fetchData() {
         if (dataList.value == null) {
             loadData()
