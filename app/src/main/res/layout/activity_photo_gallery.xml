@@ -18,7 +18,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="分类1"
+            android:text="精彩照片"
             android:textSize="18sp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp" />
@@ -33,7 +33,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="分类1"
+            android:text="风景"
             android:textSize="18sp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp" />
@@ -48,7 +48,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="分类1"
+            android:text="纪实"
             android:textSize="18sp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp" />

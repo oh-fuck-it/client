@@ -16,7 +16,7 @@ class GalleryViewModel : ViewModel() {
     @ExperimentalStdlibApi
     fun loadData() {
         viewModelScope.launch(Dispatchers.Main) {
-            dataList.value = PhotoSpider.getPhotos(1)
+            dataList.value = PhotoSpider.getPhotos(1).shuffled()
         }
     }
     @ExperimentalStdlibApi

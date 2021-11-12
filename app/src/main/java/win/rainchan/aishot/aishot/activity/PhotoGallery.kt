@@ -26,6 +26,8 @@ import win.rainchan.aishot.aishot.ui.gallery.PhotoAdapter
 class PhotoGallery : AppCompatActivity() {
     @ExperimentalStdlibApi
     private val galleryViewModel: GalleryViewModel by viewModels()
+    @ExperimentalStdlibApi
+    private val galleryViewModel1: GalleryViewModel by viewModels()
     private val localImgViewModel: LocalImgViewModel by viewModels()
     private var adapter = PhotoAdapter(arrayListOf())
     private var localadapter = LocalPhotoAdapter(arrayListOf())
@@ -39,14 +41,13 @@ class PhotoGallery : AppCompatActivity() {
 
         setContentView(binding.root)
 
-
         galleryViewModel.dataList.observe(this) {
             if (it.isNotEmpty()) {
                 // adapter.setDiffNewData(it.toMutableList())
                 adapter.setNewInstance(it.toMutableList())
+                binding.recy2.scrollToPosition(10)
             }
         }
-
 
         localImgViewModel.imgList.observe(this) {
             if (it.isNotEmpty()) {
@@ -54,7 +55,6 @@ class PhotoGallery : AppCompatActivity() {
                 localadapter.setNewInstance(it.toMutableList())
             }
         }
-
 
         galleryViewModel.fetchData()
         localImgViewModel.loadData()
@@ -78,7 +78,7 @@ class LocalImgViewModel() : ViewModel() {
     fun loadData() {
         viewModelScope.launch(Dispatchers.IO) {
             val fileList = APP.ctx.getExternalFilesDir("data")?.listFiles()
-                ?.filter { it.name.endsWith(".jpg") }?.map { it.absolutePath } ?: return@launch
+                ?.filter { it.name.endsWith(".jpg") }?.map { it.absolutePath }?.reversed() ?: return@launch
             withContext(Dispatchers.Main) {
                 imgList.value = fileList
             }
