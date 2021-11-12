@@ -16,6 +16,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import win.rainchan.aishot.aishot.APP
 import win.rainchan.aishot.aishot.R
 import win.rainchan.aishot.aishot.databinding.ActivityPhotoGalleryBinding
@@ -78,7 +79,9 @@ class LocalImgViewModel() : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val fileList = APP.ctx.getExternalFilesDir("data")?.listFiles()
                 ?.filter { it.name.endsWith(".jpg") }?.map { it.absolutePath } ?: return@launch
-            imgList.value = fileList
+            withContext(Dispatchers.Main) {
+                imgList.value = fileList
+            }
         }
     }
 }
