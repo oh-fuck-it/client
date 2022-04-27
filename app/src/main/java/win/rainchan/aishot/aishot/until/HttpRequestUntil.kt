@@ -15,10 +15,10 @@ import win.rainchan.aishot.aishot.spider.Bean.MarkDataClass
 
 object HttpRequestUntil {
     fun postMarker(file: File): MarkDataClass? {
-       return requestFile("POST","http://62.234.132.110:5000/markerImg",file)
+       return requestFile("POST","http://42.193.114.253/img/markerImg",file)
     }
     fun setTips(imgName:String): SetTipsResult? {
-        return request("POST","http://62.234.132.110:5000/setTips", mapOf(
+        return request("POST","http://42.193.114.253/img/setTips", mapOf(
             "img" to imgName
         ))
     }
@@ -40,7 +40,7 @@ object HttpRequestUntil {
                 )
             }
         )
-        return request("POST", "http://62.234.132.110:5000/getTips", mapOf(
+        return request("POST", "http://42.193.114.253/img/getTips", mapOf(
             "pred_joints" to arrayString
         ))
     }
