@@ -11,11 +11,11 @@ import java.util.concurrent.TimeUnit
 
 object HttpRequestUntil {
     fun postMarker(file: File): MarkDataClass? {
-        return requestFile("POST", "http://42.193.114.253:5000/markerImg", file)
+        return requestFile("POST", "http://101.34.24.60:5000/markerImg", file)
     }
     fun setTips(imgName:String): SetTipsResult? {
         return request(
-            "POST", "http://42.193.114.253:5000/setTips", mapOf(
+            "POST", "http://101.34.24.60:5000/setTips", mapOf(
                 "img" to imgName
             )
         )
@@ -39,7 +39,7 @@ object HttpRequestUntil {
             }
         )
         return request(
-            "POST", "http://42.193.114.253:5000/getTips", mapOf(
+            "POST", "http://101.34.24.60:5000/getTips", mapOf(
                 "pred_joints" to arrayString
             )
         )

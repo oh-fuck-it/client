@@ -6,7 +6,7 @@ plugins {
 def APP_ID = "photoAPP"
 def APP_KEY = "fhsdfh9832y7e7"
 def APP_URL = "http://42.193.114.253/api/"
-def PREDICT_API = "http://42.193.114.253/img/"
+def PREDICT_API = "http://101.34.24.60:5000/"
 
 android {
     compileSdk 31
