@@ -2,25 +2,23 @@ package win.rainchan.aishot.aishot.until
 
 import com.google.gson.Gson
 import okhttp3.*
-import org.jsoup.internal.StringUtil
+import win.rainchan.aishot.aishot.spider.Bean.MarkDataClass
 import win.rainchan.aishot.aishot.spider.Bean.SetTipsResult
 import win.rainchan.aishot.aishot.spider.Bean.TipsResult
 import java.io.File
 import java.util.concurrent.TimeUnit
-import okhttp3.RequestBody
-
-import okhttp3.MultipartBody
-import win.rainchan.aishot.aishot.spider.Bean.MarkDataClass
 
 
 object HttpRequestUntil {
     fun postMarker(file: File): MarkDataClass? {
-       return requestFile("POST","http://42.193.114.253/img/markerImg",file)
+        return requestFile("POST", "http://81.70.153.118:5000/markerImg", file)
     }
     fun setTips(imgName:String): SetTipsResult? {
-        return request("POST","http://42.193.114.253/img/setTips", mapOf(
-            "img" to imgName
-        ))
+        return request(
+            "POST", "http://81.70.153.118:5000/setTips", mapOf(
+                "img" to imgName
+            )
+        )
     }
 
     fun getTips(predJoints: Array<Array<Float>>): TipsResult? {
@@ -40,9 +38,11 @@ object HttpRequestUntil {
                 )
             }
         )
-        return request("POST", "http://42.193.114.253/img/getTips", mapOf(
-            "pred_joints" to arrayString
-        ))
+        return request(
+            "POST", "http://81.70.153.118:5000/getTips", mapOf(
+                "pred_joints" to arrayString
+            )
+        )
     }
     private fun initClient(): OkHttpClient {
         var client= OkHttpClient()
