@@ -2,10 +2,8 @@ package win.rainchan.aishot.aishot.spider
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import org.joda.time.DateTime
 import org.jsoup.Connection
 import org.jsoup.Jsoup
-import splitties.collections.forEachByIndex
 import win.rainchan.aishot.aishot.APP
 import win.rainchan.aishot.aishot.spider.Bean.NewsBean
 import win.rainchan.aishot.aishot.spider.Bean.ZxyzGsonClass
@@ -37,9 +35,15 @@ object PhotoSpider {
 
             return@withContext buildList {
                 items.forEach {
-                    add(NewsBean(title = it.title,imgUrl = "http://www.cpanet.cn"+it.thumb,time = it.createtime))
+                    add(
+                        NewsBean(
+                            title = it.title,
+                            imgUrl = "http://www.cpanet.cn" + it.thumb,
+                            time = it.createtime
+                        )
+                    )
                 }
-            }
+            }.shuffled()
         }
     }
     @ExperimentalStdlibApi

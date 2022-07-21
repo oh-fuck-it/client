@@ -23,7 +23,7 @@ class GalleryViewModel : ViewModel() {
     fun loadUnsplashData() {
         if (dataList.value == null) {
             viewModelScope.launch(Dispatchers.Main) {
-                dataList.value = PhotoSpider.getRandomPhotos(10)
+                dataList.value = PhotoSpider.getPhotos(20)
                 println(dataList.value)
             }
         }
